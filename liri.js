@@ -103,12 +103,12 @@ function moviethis(movie) {
                 // console.log(res);
                 // console.log("--------------------");
                 printIfNotUndefined("Title:", res.Title);
-                console.log("Year: " + res.Year);
-                console.log("Rating: " + res.Rated);
-                console.log("Reviews: " + res.Ratings[1].Value);
-                console.log("Country: " + res.Country);
-                console.log("Plot: " + res.Plot);
-                console.log("Actors: " + res.Actors);
+                printIfNotUndefined("Year:", res.Year);
+                printIfNotUndefined("Rating:", res.Rated);
+                printIfNotUndefined("Reviews:", res.Ratings[1].Value);
+                printIfNotUndefined("Country:", res.Country);
+                printIfNotUndefined("Plot:", res.Plot);
+                printIfNotUndefined("Actors:", res.Actors);
                 //} else console.log("movie not found: " + movie);
             })
         .catch(error => {
