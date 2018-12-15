@@ -5,8 +5,8 @@ var keys = require("./keys");
 var moment = require('moment');
 var Spotify = require('node-spotify-api');
 
-console.log(keys.spotify)
-    // var spotify = new Spotify(keys.spotify);
+//console.log(keys.spotify)
+// var spotify = new Spotify(keys.spotify);
 var request = require("request")
 
 
@@ -16,17 +16,17 @@ if (process.argv.length < 3) {
 }
 
 switch (process.argv[2]) {
-    case "concert-this":
+    case "concert-this": //
         //console.log("concert-this");
         concertThis(process.argv[3]);
         break;
         localStoragels
     case "spotify-this-song":
-        console.log("spotify-this-song");
+        // console.log("spotify-this-song");
         spotifyThisSong(process.argv[3]);
         break;
     case "movie-this":
-        console.log("movie-this");
+        //  console.log("movie-this");
         moviethis(process.argv[3])
         break;
     case "do-what-it-says":
@@ -82,6 +82,10 @@ function spotifyThisSong(song) {
     });
 }
 
+function printIfNotUndefined(print1, print2) {
+    if (print2 != undefined) console.log(print1, print2);
+}
+
 function moviethis(movie) {
     var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&apikey=trilogy"
         //var queryUrl = "https://rest.bandsintown.com/artists/ladygaga/events?app_id=codingbootcamp"
@@ -96,9 +100,9 @@ function moviethis(movie) {
                 // console.log(response.data);
                 var res = response.data;
                 // if (response.data instanceof Array) {
-                console.log(res);
-                console.log("--------------------");
-                console.log("Title: " + res.Title);
+                // console.log(res);
+                // console.log("--------------------");
+                printIfNotUndefined("Title:", res.Title);
                 console.log("Year: " + res.Year);
                 console.log("Rating: " + res.Rated);
                 console.log("Reviews: " + res.Ratings[1].Value);
