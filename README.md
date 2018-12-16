@@ -23,3 +23,10 @@ no help is available
 
 Who maintains and contributes to the project:
 this project is not maintained
+
+Examples:
+do-what-it-says.png
+concert-this.png
+spotify-this-song.png
+movie-this.png
+
