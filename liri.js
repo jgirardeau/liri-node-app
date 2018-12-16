@@ -5,8 +5,6 @@ var keys = require("./keys");
 var moment = require('moment');
 var Spotify = require('node-spotify-api');
 
-//console.log(keys.spotify)
-// var spotify = new Spotify(keys.spotify);
 var request = require("request")
 
 
@@ -15,27 +13,32 @@ if (process.argv.length < 3) {
     process.exit(-1);
 }
 
-switch (process.argv[2]) {
-    case "concert-this": //
-        //console.log("concert-this");
-        concertThis(process.argv[3]);
-        break;
-        localStoragels
-    case "spotify-this-song":
-        // console.log("spotify-this-song");
-        spotifyThisSong(process.argv[3]);
-        break;
-    case "movie-this":
-        //  console.log("movie-this");
-        moviethis(process.argv[3])
-        break;
-    case "do-what-it-says":
-        console.log("do-what-it-says");
-        break;
-    default:
-        console.log("unknown: " + process.argv[2])
-        break;
+function processArgs(val1, val2) {
+    switch (val1) {
+        case "concert-this": //
+            //console.log("concert-this");
+            concertThis(val2);
+            break;
+            localStoragels
+        case "spotify-this-song":
+            // console.log("spotify-this-song");
+            spotifyThisSong(val2);
+            break;
+        case "movie-this":
+            //  console.log("movie-this");
+            moviethis(val2)
+            break;
+        case "do-what-it-says":
+            //console.log("do-what-it-says");
+            doWhatItSays();
+            break;
+        default:
+            console.log("unknown: " + val1)
+            break;
+    }
 }
+
+processArgs(process.argv[2], process.argv[3]);
 
 function concertThis(artist) {
     // Then run a request with axios to the OMDB API with the movie specified
@@ -68,17 +71,10 @@ function spotifyThisSong(song) {
         if (err) {
             return console.log("error in search: ", err);
         };
-
-
-        // console.log(data.tracks.items);
-        //console.log(data.tracks.items[0].name);
         console.log("*******")
         console.log(data.tracks.items[0].name + " by " + data.tracks.items[0].album.artists[0].name +
             " from the album " + data.tracks.items[0].album.name +
             " Paste the url in browser to hear a preview!: " + data.tracks.items[0].preview_url);
-
-
-
     });
 }
 
@@ -88,20 +84,10 @@ function printIfNotUndefined(print1, print2) {
 
 function moviethis(movie) {
     var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&apikey=trilogy"
-        //var queryUrl = "https://rest.bandsintown.com/artists/ladygaga/events?app_id=codingbootcamp"
-        // This line is just to help us debug against the actual URL.
-        //console.log(movie);
-        //  Title of the movie.*Year the movie came out.*IMDB Rating of the movie.*Rotten Tomatoes Rating of the movie.
-        //*Country where the movie was produced.
-        //*Language of the movie.
-        //*Plot of the movie.
     axios.get(queryUrl).then(
             response => {
                 // console.log(response.data);
                 var res = response.data;
-                // if (response.data instanceof Array) {
-                // console.log(res);
-                // console.log("--------------------");
                 printIfNotUndefined("Title:", res.Title);
                 printIfNotUndefined("Year:", res.Year);
                 printIfNotUndefined("Rating:", res.Rated);
@@ -114,5 +100,16 @@ function moviethis(movie) {
         .catch(error => {
             console.log(error);
         });
+}
+
+function doWhatItSays() {
+    fs.readFile('./random.txt', 'utf-8', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        var command = data.split(",");
+        console.log(command);
+        processArgs(command[0], command[1]);
+    });
 
 }
