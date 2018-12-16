@@ -17,18 +17,22 @@ function processArgs(val1, val2) {
     switch (val1) {
         case "concert-this": //
             //console.log("concert-this");
+            logData("concert-this " + val2);
             concertThis(val2);
             break;
             localStoragels
         case "spotify-this-song":
             // console.log("spotify-this-song");
+            logData("spotify-this-song " + val2);
             spotifyThisSong(val2);
             break;
         case "movie-this":
             //  console.log("movie-this");
+            logData("movie-this " + val2);
             moviethis(val2)
             break;
         case "do-what-it-says":
+            logData("do-what-it-says");
             //console.log("do-what-it-says");
             doWhatItSays();
             break;
@@ -108,8 +112,14 @@ function doWhatItSays() {
             throw err;
         }
         var command = data.split(",");
-        console.log(command);
+        //  console.log(command);
         processArgs(command[0], command[1]);
     });
+}
 
+function logData(data) {
+    var divider = "\n------------------------------------------------------------\n\n";
+    fs.appendFile("log.txt", data + divider, function(err) {
+        if (err) throw err;
+    });
 }
